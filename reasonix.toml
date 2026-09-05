@@ -8,7 +8,7 @@
 #     PyPI 上该包全部版本要求 Python >=3.11，与 Python 3.10 冲突（见 docs/architecture.md 决策 5）
 #   - 前提：conda 环境已装依赖；command 指向环境内 python 的绝对路径
 #
-# Day 4：生产切独立 SSE 服务（水平扩展），启用下方注释块，stdio 块删除
+# Day 4：生产切独立 streamable-http 服务（水平扩展），启用下方注释块，stdio 块删除
 # ============================================================
 
 default_model = "deepseek-flash"

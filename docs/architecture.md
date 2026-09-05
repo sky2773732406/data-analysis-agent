@@ -20,7 +20,7 @@
 
 ### 1.2 决策记录
 
-**决策 1：MCP Server 部署模式 = stdio（开发）→ SSE 独立服务（生产）**
+**决策 1：MCP Server 部署模式 = stdio（开发）→ streamable-http 独立服务（生产）**
 - 理由：stdio 把 MCP Server 绑死在 Agent 进程内，无法独立水平扩展；生产必须独立进程 + 反向代理，支撑「单实例 QPS 扩展线性度 ≥ 80%」指标。
 - Day 4 待验证项：streamable-http 传输的无状态语义（新版协议已移除 `Mcp-Session-Id`）；届时用压测数据确认扩展线性度。
 
