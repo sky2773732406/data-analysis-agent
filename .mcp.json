@@ -1,0 +1,20 @@
+{
+  "mcpServers": {
+    "mysql": {
+      "type": "stdio",
+      "command": "python",
+      "args": ["-m", "app.mcp.server"],
+      "env": {
+        "PYTHONPATH": "E:/Project Practice/data-analysis-agent",
+        "MYSQL_HOST": "127.0.0.1",
+        "MYSQL_PORT": "3306",
+        "MYSQL_USER": "mcp_reader",
+        "MYSQL_PASSWORD": "mcp_reader_pw",
+        "MYSQL_DATABASE": "analytics",
+        "MYSQL_POOL_SIZE": "20",
+        "QUERY_TIMEOUT_SECONDS": "30",
+        "MAX_ROWS_RETURN": "1000"
+      }
+    }
+  }
+}

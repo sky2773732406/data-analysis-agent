@@ -1,0 +1,51 @@
+# ============================================================
+# Reasonix 配置（1.x Go 版，reasonix setup 生成基础文件后与本文件合并）
+# 优先级：flag > ./reasonix.toml > 用户配置（Windows: %AppData%\reasonix\）
+#
+# Day 1：stdio 模式声明 mysql MCP Server（开发验证）
+#   - 工具以 mcp__mysql__<tool> 暴露给模型
+#   - 服务端为自研 app/mcp/server.py（mcp SDK + pymysql），替代 mysql-mcp-server：
+#     PyPI 上该包全部版本要求 Python >=3.11，与 Python 3.10 冲突（见 docs/architecture.md 决策 5）
+#   - 前提：conda 环境已装依赖；command 指向环境内 python 的绝对路径
+#
+# Day 4：生产切独立 SSE 服务（水平扩展），启用下方注释块，stdio 块删除
+# ============================================================
+
+default_model = "deepseek-flash"
+
+# DeepSeek 提供方（api key 经环境变量注入，绝不写入本文件）
+[[providers]]
+name = "deepseek-flash"
+kind = "openai"
+base_url = "https://api.deepseek.com"
+model = "deepseek-v4-flash"
+api_key_env = "DEEPSEEK_API_KEY"
+
+[skills]
+paths = ["./skills"]   # 本仓库的 skill 脚本（Day 2-3 的 sales_trend 等）
+
+# ---------- MCP：本地 stdio（开发，自研 server） ----------
+[[plugins]]
+name = "mysql"
+# conda 环境 python 绝对路径（证据：本机 D:\Anaconda；如 `where python` 输出不同以此为准）
+command = "D:/Anaconda/envs/data-analysis-agent/python.exe"
+args = ["-m", "app.mcp.server"]
+env = {
+  PYTHONPATH = "E:/Project Practice/data-analysis-agent",   # ← 改成项目根目录
+  MYSQL_HOST = "127.0.0.1",
+  MYSQL_PORT = "3306",
+  MYSQL_USER = "mcp_reader",
+  MYSQL_PASSWORD = "mcp_reader_pw",
+  MYSQL_DATABASE = "analytics",
+  MYSQL_POOL_SIZE = "20",
+  QUERY_TIMEOUT_SECONDS = "30",
+  MAX_ROWS_RETURN = "1000",
+  MCP_TRANSPORT = "stdio",
+}
+
+# ---------- MCP：远程 Streamable HTTP（生产，Day 4 启用） ----------
+# [[plugins]]
+# name = "mysql"
+# type = "http"
+# url = "https://mcp.example.com/mcp"
+# headers = { Authorization = "Bearer ${MCP_API_KEY}" }   # ${VAR} 从环境展开，密钥不入文件

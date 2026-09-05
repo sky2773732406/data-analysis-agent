@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# 环境变量与密钥（禁止入库；.env.example 保留）
+.env
+!.env.example
+
+# 依赖与构建
+node_modules/
+dist/
+build/
+
+# 测试与覆盖率
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Reasonix 运行时 / IDE
+.reasonix/
+.idea/
+.vscode/
+
+# 数据与日志
+*.log
+logs/
+data/
+
+# 个人备份（复盘/面试材料，仅本地，不推送）
+docs/retrospective.md
+
+# 系统
+.DS_Store
+Thumbs.db

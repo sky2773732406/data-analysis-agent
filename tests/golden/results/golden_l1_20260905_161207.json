@@ -1,0 +1,194 @@
+{
+  "summary": {
+    "total": 20,
+    "tool_success": 20,
+    "correct": 20,
+    "tool_success_rate": 1.0,
+    "sql_correct_rate": 1.0,
+    "latency_p50_ms": 2.8,
+    "latency_max_ms": 526.6,
+    "generated_at": "2026-09-05T08:12:07+00:00"
+  },
+  "cases": [
+    {
+      "id": "st-01",
+      "skill": "sales_trend",
+      "ok": true,
+      "tool_ok": true,
+      "fails": [],
+      "latency_ms": 526.6,
+      "question": "按月统计营收趋势（最近半年逐月金额）"
+    },
+    {
+      "id": "st-02",
+      "skill": "sales_trend",
+      "ok": true,
+      "tool_ok": true,
+      "fails": [],
+      "latency_ms": 2.9,
+      "question": "首月（2025-12）到末月（2026-05）营收增长了多少比例？"
+    },
+    {
+      "id": "st-03",
+      "skill": "sales_trend",
+      "ok": true,
+      "tool_ok": true,
+      "fails": [],
+      "latency_ms": 3.5,
+      "question": "哪个区域营收最高？"
+    },
+    {
+      "id": "st-04",
+      "skill": "sales_trend",
+      "ok": true,
+      "tool_ok": true,
+      "fails": [],
+      "latency_ms": 2.7,
+      "question": "哪个产品贡献营收最多？"
+    },
+    {
+      "id": "st-05",
+      "skill": "sales_trend",
+      "ok": true,
+      "tool_ok": true,
+      "fails": [],
+      "latency_ms": 3.9,
+      "question": "各产品营收与占比"
+    },
+    {
+      "id": "st-06",
+      "skill": "sales_trend",
+      "ok": true,
+      "tool_ok": true,
+      "fails": [],
+      "latency_ms": 1.3,
+      "question": "客单价（平均每单金额）是多少？"
+    },
+    {
+      "id": "st-07",
+      "skill": "sales_trend",
+      "ok": true,
+      "tool_ok": true,
+      "fails": [],
+      "latency_ms": 1.8,
+      "question": "周末（周六日）营收占全盘比例是否在合理区间？"
+    },
+    {
+      "id": "cs-01",
+      "skill": "customer_segment",
+      "ok": true,
+      "tool_ok": true,
+      "fails": [],
+      "latency_ms": 0.9,
+      "question": "半年内有消费的客户数是多少？"
+    },
+    {
+      "id": "cs-02",
+      "skill": "customer_segment",
+      "ok": true,
+      "tool_ok": true,
+      "fails": [],
+      "latency_ms": 1.3,
+      "question": "有多少客户半年内从未下单（沉默客户）？"
+    },
+    {
+      "id": "cs-03",
+      "skill": "customer_segment",
+      "ok": true,
+      "tool_ok": true,
+      "fails": [],
+      "latency_ms": 3.7,
+      "question": "按消费金额排序的前 5 名客户（只输出 customer_id，不要姓名电话）"
+    },
+    {
+      "id": "cs-04",
+      "skill": "customer_segment",
+      "ok": true,
+      "tool_ok": true,
+      "fails": [],
+      "latency_ms": 5.0,
+      "question": "消费额前 20% 客户（按客户数 200 计取前 40）贡献了多少营收比例？"
+    },
+    {
+      "id": "cs-05",
+      "skill": "customer_segment",
+      "ok": true,
+      "tool_ok": true,
+      "fails": [],
+      "latency_ms": 1.5,
+      "question": "有过至少 2 次购买的客户有多少？"
+    },
+    {
+      "id": "cs-06",
+      "skill": "customer_segment",
+      "ok": true,
+      "tool_ok": true,
+      "fails": [],
+      "latency_ms": 1.5,
+      "question": "平均每个活跃客户半年下几单？"
+    },
+    {
+      "id": "cs-07",
+      "skill": "customer_segment",
+      "ok": true,
+      "tool_ok": true,
+      "fails": [],
+      "latency_ms": 3.6,
+      "question": "单客户最高累计消费额是多少？"
+    },
+    {
+      "id": "ad-01",
+      "skill": "anomaly_detect",
+      "ok": true,
+      "tool_ok": true,
+      "fails": [],
+      "latency_ms": 1.0,
+      "question": "华南 2026-03-10~03-14（注入大促窗口）总订单数"
+    },
+    {
+      "id": "ad-02",
+      "skill": "anomaly_detect",
+      "ok": true,
+      "tool_ok": true,
+      "fails": [],
+      "latency_ms": 0.7,
+      "question": "华北 2026-04-20~04-24（注入故障窗口）总订单数应极少"
+    },
+    {
+      "id": "ad-03",
+      "skill": "anomaly_detect",
+      "ok": true,
+      "tool_ok": true,
+      "fails": [],
+      "latency_ms": 1.5,
+      "question": "华南大促周（3/9-15）营收 vs 前一周（3/2-8）的倍数"
+    },
+    {
+      "id": "ad-04",
+      "skill": "anomaly_detect",
+      "ok": true,
+      "tool_ok": true,
+      "fails": [],
+      "latency_ms": 4.0,
+      "question": "半年内单区域单日营收最大的日期与区域"
+    },
+    {
+      "id": "ad-05",
+      "skill": "anomaly_detect",
+      "ok": true,
+      "tool_ok": true,
+      "fails": [],
+      "latency_ms": 4.2,
+      "question": "各区域有订单的天数是否接近全窗口（数据稀疏度检查）"
+    },
+    {
+      "id": "ad-06",
+      "skill": "anomaly_detect",
+      "ok": true,
+      "tool_ok": true,
+      "fails": [],
+      "latency_ms": 3.0,
+      "question": "12 月与 5 月全盘营收对比（增长验证）"
+    }
+  ]
+}

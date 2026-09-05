@@ -1,0 +1,35 @@
+# ============================================================
+# data-analysis-agent 依赖
+# 安装：conda activate data-analysis-agent && pip install -r requirements.txt
+# 版本均为下限约束，首装后把实际解析版本回填（保证可复现），见 docs/architecture.md
+# ============================================================
+
+# ---------- Day 1：MCP + 分布式 Checkpointer ----------
+# mysql-mcp-server 已在选型时否决：PyPI 上全部版本 Requires-Python >=3.11，与 Python 3.10 冲突
+# （详见 docs/architecture.md 决策 5 —— 改为自研 app/mcp/server.py）
+mcp>=1.28,<2                 # MCP Python SDK（钉 1.x：2.x 为破坏性重构，评估迁移后再放开）
+pymysql>=1.1                 # MySQL 驱动（自研 MCP Server 连接池底层）
+cryptography>=42.0           # pymysql 连 MySQL8 caching_sha2_password 全量认证所需
+langgraph>=0.2               # Agent 编排（StateGraph）
+langgraph-checkpoint-postgres>=2.0   # PostgresSaver 分布式 Checkpointer
+psycopg[binary]>=3.1         # PostgresSaver 底层驱动（psycopg3）
+
+# ---------- Day 2+：应用层（FastAPI 服务） ----------
+fastapi>=0.110
+uvicorn[standard]>=0.29
+gunicorn>=22.0               # 多进程管理 uvicorn worker
+pydantic>=2.6
+pydantic-settings>=2.2
+python-dotenv>=1.0
+redis>=5.0                   # 缓存 / 限流 / 结果缓存
+sqlalchemy>=2.0
+
+# ---------- Day 2-3：数据分析工具集（sales_trend / customer_segment / anomaly_detect） ----------
+pandas>=2.2
+numpy>=1.26
+
+# ---------- 测试 / 压测 ----------
+pytest>=8.0
+pytest-asyncio>=0.23
+httpx>=0.27
+locust>=2.24

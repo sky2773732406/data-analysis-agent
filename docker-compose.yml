@@ -1,0 +1,42 @@
+# ============================================================
+# 本地开发编排
+# Day 1 阶段：postgres（分布式 Checkpointer）+ redis（缓存）
+# MySQL 使用本机已有实例（3306 被占用 → 决策 6，见 docs/architecture.md）：
+#   初始化 SQL 手动执行：mysql -u root -p < deploy/docker/mysql-init/01-init.sql
+# Day 4 阶段：追加 app（FastAPI）与 mcp-server（独立 streamable-http 服务）
+# 启动：docker compose up -d
+# ============================================================
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: daa-postgres
+    environment:
+      POSTGRES_USER: agent
+      POSTGRES_PASSWORD: agent_pw
+      POSTGRES_DB: agent_state
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U agent"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  redis:
+    image: redis:7-alpine
+    container_name: daa-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  pg_data:
+  redis_data:

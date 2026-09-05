@@ -1,0 +1,27 @@
+[Unit]
+# MySQL MCP Server —— 生产独立服务（streamable-http 模式）
+# 说明：stdio 模式只作为 MCP 客户端子进程存在，不可用 systemd 单独托管；
+#       本单元是生产形态（独立 HTTP 服务，可水平扩展多实例）。
+# 安装：sudo cp deploy/systemd/mysql-mcp-server.service /etc/systemd/system/
+#       sudo systemctl daemon-reload && sudo systemctl enable --now mysql-mcp-server
+# 注意：Windows 本地开发无需本文件（直接终端前台跑，等价验证见 docs/architecture.md 4.1）
+Description=MySQL MCP Server (streamable-http)
+After=network.target mysql.service
+Wants=mysql.service
+
+[Service]
+Type=simple
+User=deploy
+WorkingDirectory=/opt/data-analysis-agent
+# 环境变量统一从 .env 注入（配置外部化，禁止硬编码）
+EnvironmentFile=/opt/data-analysis-agent/.env
+ExecStart=/opt/conda/envs/data-analysis-agent/bin/python -m app.mcp.server
+Restart=always
+RestartSec=3
+# 优雅停机：SIGTERM 后给存量请求最多 30s 处理完（FastMCP/uvicorn 原生处理）
+TimeoutStopSec=30
+# 单实例资源上限（防失控吃满宿主机；多实例扩展时按容量规划调整）
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target
